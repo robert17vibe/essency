@@ -1,10 +1,9 @@
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PerfumeService } from '../../services/perfume';
 
-// home pronto
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -12,51 +11,76 @@ import { PerfumeService } from '../../services/perfume';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit, OnDestroy {
+export class Home implements OnInit {
 
+  // Lista geral de perfumes
   perfumes: any[] = [];
+
+  // Listas separadas por categoria
+  perfumesMasculinos: any[] = [];
+  perfumesFemininos: any[] = [];
+
+  // Dados do carrossel (banner)
+  heroSlides: any[] = [];
   heroIndex = 0;
-  heroSlides = Array(6).fill(0);
-  private autoSlide: any;
 
-  constructor(private router: Router, private perfumeService: PerfumeService) {}
+  constructor(
+    private perfumeService: PerfumeService // acesso ao backend
+  ) { }
 
+  // Executa quando a página abre
   ngOnInit(): void {
-    this.perfumeService.getPerfumes().subscribe((dados: any) => {
-      this.perfumes = dados;
-    });
-    this.autoSlide = setInterval(() => {
-      this.heroIndex = (this.heroIndex + 1) % this.heroSlides.length;
-    }, 4000);
+    this.carregarPerfumes();
+    
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.autoSlide);
+// ---------------- CARREGAR DADOS ----------------
+  carregarPerfumes() {
+    this.perfumeService.getPerfumes()
+      .subscribe({
+        next: (dados: any) => {
+          // Todos os perfumes
+          this.perfumes = dados;
+          
+          // Apenas perfumes com banner ativo (carrossel)
+          this.heroSlides = dados.filter(
+            (p: any) => p.banner === true
+          );
+          // Filtra masculinos
+          this.perfumesMasculinos = dados.filter(
+            (p: any) => p.categoria === 'Masculino'
+          );
+          // Filtra femininos
+          this.perfumesFemininos = dados.filter(
+            (p: any) => p.categoria === 'Feminino'
+          );
+        },
+        error: (erro) => {
+          // Se der problema na API, ele te avisa aqui!
+          console.error('Falha ao carregar os perfumes:', erro);
+        }
+      });
   }
-
+  
+  // Próximo slide do carrossel
   heroAvancar() {
-    this.heroIndex = (this.heroIndex + 1) % this.heroSlides.length;
-    this.resetTimer();
+    this.heroIndex =
+      (this.heroIndex + 1) % this.heroSlides.length;
   }
-
+     
+  // Slide anterior
   heroVoltar() {
-    this.heroIndex = (this.heroIndex - 1 + this.heroSlides.length) % this.heroSlides.length;
-    this.resetTimer();
+    this.heroIndex =
+      (this.heroIndex - 1 + this.heroSlides.length)
+      % this.heroSlides.length;
   }
 
-  private resetTimer() {
-    clearInterval(this.autoSlide);
-    this.autoSlide = setInterval(() => {
-      this.heroIndex = (this.heroIndex + 1) % this.heroSlides.length;
-    }, 4000);
-  }
+  // adiciona no ca
+adicionarCarrinho(produto: any) {
 
-  irParaProdutos() {
-    const el = document.getElementById('male');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
+  this.perfumeService.adicionarCarrinho(produto);
 
-  adicionarFavorito() {
-    this.router.navigate(['/favorites']);
-  }
+  alert('Produto adicionado ao carrinho');
+
+}
 }

@@ -5,43 +5,51 @@
 
   <form (ngSubmit)="cadastrarPerfume()">
 
+    <p *ngIf="mensagem" class="mensagem">
+      {{ mensagem }}
+    </p>
+
     <label>Nome do Perfume</label>
-    <input
-      type="text"
-      name="nome"
-      [(ngModel)]="novoPerfume.nome"
-      required
-    >
+    <input type="text" name="nome" [(ngModel)]="novoPerfume.nome" required>
 
     <label>Marca</label>
-    <input
-      type="text"
-      name="marca"
-      [(ngModel)]="novoPerfume.marca"
-      required
-    >
+    <input type="text" name="marca" [(ngModel)]="novoPerfume.marca" required>
+
+    <label>Categoria do Perfume</label>
+
+    <select name="categoria" [(ngModel)]="novoPerfume.categoria" required>
+
+      <option value="Masculino">
+        Masculino
+      </option>
+
+      <option value="Feminino">
+        Feminino
+      </option>
+
+    </select>
 
     <label>Preço sem desconto</label>
-    <input
-      type="number"
-      name="precoAntigo"
-      [(ngModel)]="novoPerfume.precoAntigo"
-      required
-    >
+    <input type="number" name="precoAntigo" [(ngModel)]="novoPerfume.precoAntigo" required>
 
     <label>Preço com desconto</label>
-    <input
-      type="number"
-      name="precoAtual"
-      [(ngModel)]="novoPerfume.precoAtual"
-      required
-    >
+    <input type="number" name="precoAtual" [(ngModel)]="novoPerfume.precoAtual" required>
 
     <label>Imagem do Produto</label>
-    <input
-      type="file"
-      (change)="selecionarImagem($event)"
-    >
+
+    <input type="file" (change)="selecionarImagem($event)">
+
+    <!-- NOVO -->
+    <div class="checkbox-banner">
+
+      <label>
+        Mostrar no Carrossel
+      </label>
+
+      <input type="checkbox" name="banner" [(ngModel)]="novoPerfume.banner">
+
+    </div>
+
 
     <button type="submit">
       {{ idEditando ? 'Atualizar' : 'Cadastrar' }}

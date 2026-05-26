@@ -1,1 +1,142 @@
-<p>cart works!</p>
+<section class="cart-page">
+
+  <!-- TÍTULO -->
+  <div class="cart-header">
+
+    <h1>
+      Meu Carrinho
+    </h1>
+
+    <p>
+      Finalize sua experiência de luxo
+    </p>
+
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="cart-content">
+
+    <!-- LISTA DE PRODUTOS -->
+    <div class="cart-items">
+
+      <!-- CARD -->
+      <div class="cart-item"
+           *ngFor="let produto of carrinho; let i = index">
+
+        <!-- IMAGEM -->
+        <div class="cart-img">
+
+          <img [src]="produto.imagem"
+               [alt]="produto.nome">
+
+        </div>
+
+        <!-- INFO -->
+        <div class="cart-info">
+
+          <p class="marca">
+            {{ produto.marca }}
+          </p>
+
+          <h2>
+            {{ produto.nome }}
+          </h2>
+
+          <p class="parcelamento">
+
+            6x de R$
+            {{ (produto.precoAtual / 6).toFixed(2) }}
+
+            sem juros
+
+          </p>
+
+          <p class="preco">
+            R$ {{ produto.precoAtual }}
+          </p>
+
+        </div>
+
+        <!-- AÇÕES -->
+        <div class="cart-actions">
+
+          <!-- QUANTIDADE -->
+          <div class="quantidade">
+
+            <button (click)="diminuirQuantidade(i)">
+              -
+            </button>
+
+            <span>
+              {{ produto.quantidade || 1 }}
+            </span>
+
+            <button (click)="aumentarQuantidade(i)">
+              +
+            </button>
+
+          </div>
+
+          <!-- REMOVER -->
+          <button class="btn-remover"
+                  (click)="removerCarrinho(i)">
+
+            Remover
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RESUMO -->
+    <div class="cart-summary">
+
+      <h2>
+        Resumo
+      </h2>
+
+      <div class="summary-item">
+
+        <span>Subtotal</span>
+
+        <span>
+          R$ {{ calcularTotal() }}
+        </span>
+
+      </div>
+
+      <div class="summary-item">
+
+        <span>Frete</span>
+
+        <span>
+          Grátis
+        </span>
+
+      </div>
+
+      <div class="summary-total">
+
+        <span>Total</span>
+
+        <span>
+          R$ {{ calcularTotal() }}
+        </span>
+
+      </div>
+
+      <!-- FINALIZAR -->
+      <button class="btn-finalizar">
+
+        Finalizar Compra
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>

@@ -38,7 +38,7 @@
 
       <div class="links">
         <a (click)="mostrar('register')">Criar conta</a>
-        <a (click)="mostrar('forgot')">Esqueci minha senha</a>
+        
       </div>
     </div>
 
@@ -70,27 +70,7 @@
       <div class="links">
         <a (click)="mostrar('login')">Já tenho conta</a>
       </div>
-    </div>
-
-    <!-- ======================== -->
-    <!-- TELA 3: RECUPERAR SENHA  -->
-    <!-- ======================== -->
-    <div *ngIf="tela === 'forgot'">
-      <h2>Recuperar Senha</h2>
-
-      <div class="campo">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="recEmail" placeholder="seu@email.com">
-      </div>
-
-      <p class="msg" *ngIf="recMsg">{{ recMsg }}</p>
-
-      <button class="btn-primary" (click)="recuperar()">Enviar</button>
-
-      <div class="links">
-        <a (click)="mostrar('login')">Voltar ao login</a>
-      </div>
-    </div>
+    </div>    
 
   </div>
 

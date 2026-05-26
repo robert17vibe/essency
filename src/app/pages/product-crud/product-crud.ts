@@ -14,48 +14,62 @@ import { PerfumeService } from '../../services/perfume';
 })
 export class ProductCrud implements OnInit {
 
+  // Lista de produtos carregados do backend
   produtos: any[] = [];
 
+  // Guarda o produto que está sendo editado no momento
   produtoEditando: any = null;
 
-  constructor(private perfumeService: PerfumeService) {}
+  constructor(
+    private perfumeService: PerfumeService // Service de CRUD (API)
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    // Executa quando a tela abre
     this.carregarProdutos();
+    
   }
 
-  // READ
+  // ---------------- READ ----------------
+  // Busca todos os perfumes no backend
   carregarProdutos() {
     this.perfumeService.getPerfumes().subscribe((data: any) => {
       this.produtos = data;
+      
     });
   }
 
-  // DELETE
+  // ---------------- DELETE ----------------
+  // Remove um produto pelo ID
   deletar(id: number) {
     this.perfumeService.deletarPerfume(id).subscribe(() => {
+      // Atualiza a lista após deletar
       this.carregarProdutos();
     });
   }
 
-  // ABRIR EDIÇÃO
+  // ---------------- EDITAR ----------------
+  // Abre modo de edição copiando os dados do produto
   editar(produto: any) {
-    this.produtoEditando = { ...produto }; // cópia
+    this.produtoEditando = { ...produto }; // cópia segura (não altera direto na lista)
   }
 
-  // SALVAR EDIÇÃO
+  // ---------------- SALVAR EDIÇÃO ----------------
   salvarEdicao() {
     this.perfumeService
       .atualizarPerfume(this.produtoEditando.id, this.produtoEditando)
       .subscribe(() => {
 
+        // Limpa modo edição
         this.produtoEditando = null;
+
+        // Recarrega lista atualizada
         this.carregarProdutos();
 
       });
   }
 
-  // CANCELAR
+  // ---------------- CANCELAR EDIÇÃO ----------------
   cancelar() {
     this.produtoEditando = null;
   }

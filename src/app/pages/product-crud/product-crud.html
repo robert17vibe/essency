@@ -13,9 +13,9 @@
     <div class="acoes">
 
       <!-- EDITAR -->
-<button class="editar" [routerLink]="['/product-register', produto.id]">
-  Editar
-</button>
+      <button class="editar" [routerLink]="['/product-register', produto.id]">
+        Editar
+      </button>
 
       <!-- EXCLUIR -->
       <button class="excluir" (click)="deletar(produto.id)">
@@ -28,7 +28,7 @@
 
 </div>
 
-<!-- 🔥 FORM DE EDIÇÃO -->
+<!-- FORM DE EDIÇÃO -->
 <div class="edit-form" *ngIf="produtoEditando">
 
   <h3>Editar Produto</h3>

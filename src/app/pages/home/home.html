@@ -1,192 +1,260 @@
-<!-- carrossel pronto -->
+<!-- CARROSSEL PRINCIPAL -->
 <section class="hero-carousel">
-
+  <!--
+    CONTAINER QUE MOVE OS SLIDES
+    O translateX faz o efeito de passar pro lado
+    heroIndex controla qual slide está visível
+  -->
   <div class="hero-slides" [style.transform]="'translateX(-' + heroIndex * 100 + '%)'">
+    <!--
+      LOOP DOS SLIDES
+      Pega apenas perfumes com banner = true
+    -->
+    <div class="hero-slide" *ngFor="let slide of heroSlides">
 
-    <div class="hero-slide">
-      <div class="slide-img-wrap"><img src="lemaleelixir-removebg-preview.png" alt="Le Male Elixir"></div>
+      <!-- IMAGEM DO PERFUME -->
+      <div class="slide-img-wrap">
+
+        <img [src]="slide.imagem" [alt]="slide.nome">
+
+      </div>
+
+      <!-- INFORMAÇÕES DO PERFUME -->
       <div class="slide-info">
-        <p class="slide-marca">Jean Paul Gaultier</p>
-        <h2 class="slide-nome">Le Male Elixir</h2>
-        <p class="slide-preco">R$599,00</p>
-        <button class="slide-btn" (click)="irParaProdutos()">Ver Coleção</button>
+
+        <!-- MARCA -->
+        <p class="slide-marca">
+          {{ slide.marca }}
+        </p>
+
+        <!-- NOME -->
+        <h2 class="slide-nome">
+          {{ slide.nome }}
+        </h2>
+
+        <!-- PREÇO -->
+        <p class="slide-preco">
+          R$ {{ slide.precoAtual.toFixed(2) }}
+        </p>
+
+        <!-- BOTÃO -->
+        <button class="slide-btn">
+          Ver Coleção
+        </button>
       </div>
     </div>
-
-    <div class="hero-slide">
-      <div class="slide-img-wrap"><img src="SauvageDior-removebg-preview.png" alt="Sauvage Dior"></div>
-      <div class="slide-info">
-        <p class="slide-marca">Dior</p>
-        <h2 class="slide-nome">Sauvage EDP</h2>
-        <p class="slide-preco">R$469,89</p>
-        <button class="slide-btn" (click)="irParaProdutos()">Ver Coleção</button>
-      </div>
-    </div>
-
-    <div class="hero-slide">
-      <div class="slide-img-wrap"><img src="Aventus_Creed-removebg-preview.png" alt="Aventus Creed"></div>
-      <div class="slide-info">
-        <p class="slide-marca">Creed</p>
-        <h2 class="slide-nome">Aventus</h2>
-        <p class="slide-preco">R$898,20</p>
-        <button class="slide-btn" (click)="irParaProdutos()">Ver Coleção</button>
-      </div>
-    </div>
-
-    <div class="hero-slide">
-      <div class="slide-img-wrap"><img src="Good_Girl_Carolina_Herrera-removebg-preview.png" alt="Good Girl"></div>
-      <div class="slide-info">
-        <p class="slide-marca">Carolina Herrera</p>
-        <h2 class="slide-nome">Good Girl</h2>
-        <p class="slide-preco">R$359,99</p>
-        <button class="slide-btn" (click)="irParaProdutos()">Ver Coleção</button>
-      </div>
-    </div>
-
-    <div class="hero-slide">
-      <div class="slide-img-wrap"><img src="Coco_Noir_Chanel-removebg-preview.png" alt="Coco Noir"></div>
-      <div class="slide-info">
-        <p class="slide-marca">Chanel</p>
-        <h2 class="slide-nome">Coco Noir</h2>
-        <p class="slide-preco">R$609,99</p>
-        <button class="slide-btn" (click)="irParaProdutos()">Ver Coleção</button>
-      </div>
-    </div>
-
-    <div class="hero-slide">
-      <div class="slide-img-wrap"><img src="Bleu_de_Chanel_Eau_de_Parfum_Chanel-removebg-preview.png" alt="Bleu de Chanel"></div>
-      <div class="slide-info">
-        <p class="slide-marca">Chanel</p>
-        <h2 class="slide-nome">Bleu de Chanel</h2>
-        <p class="slide-preco">R$880,19</p>
-        <button class="slide-btn" (click)="irParaProdutos()">Ver Coleção</button>
-      </div>
-    </div>
-
   </div>
 
-  <button class="hero-btn hero-btn-left"  (click)="heroVoltar()">&#8249;</button>
-  <button class="hero-btn hero-btn-right" (click)="heroAvancar()">&#8250;</button>
+  <!-- BOTÃO VOLTAR -->
+  <button class="hero-btn hero-btn-left" (click)="heroVoltar()">
+    &#8249;
+  </button>
 
+  <!-- BOTÃO AVANÇAR -->
+  <button class="hero-btn hero-btn-right" (click)="heroAvancar()">
+    &#8250;
+  </button>
+
+  <!--
+    DOTS DO CARROSSEL
+    Mostram qual slide está ativo
+  -->
   <div class="hero-dots">
-    <span *ngFor="let d of heroSlides; let i = index"
-          class="dot" [class.ativo]="i === heroIndex"
-          (click)="heroIndex = i">
+
+    <span *ngFor="let slide of heroSlides; let i = index" class="dot" [class.ativo]="i === heroIndex"
+      (click)="heroIndex = i">
     </span>
+
   </div>
 
 </section>
 
-<!-- masculinos pronto -->
+<!-- ========================= -->
+<!-- SEÇÃO MASCULINOS -->
+<!-- ========================= -->
+
 <section id="male" class="secao-produtos fade-in">
-  <h2 class="section-title">Perfumes <span class="destaque-ouro">Masculinos</span></h2>
 
+  <!-- TITULO -->
+  <h2 class="section-title">
+
+    Perfumes
+
+    <span class="destaque-ouro">
+      Masculinos
+    </span>
+
+  </h2>
+
+  <!-- CONTAINER DOS CARDS -->
   <div class="perfumes-container">
 
-    <div class="product-card">
-      <div class="card-img-wrap"><img src="lemaleelixir-removebg-preview.png" alt="Le Male Elixir"></div>
-      <div class="card-body">
-        <p class="card-marca">Jean Paul Gaultier</p>
-        <p class="card-nome">Le Male Elixir 100ml</p>
-        <p class="card-preco-de">De: R$679,40</p>
-        <p class="card-preco-por">R$599,00</p>
-        <p class="card-parcel">6x de R$99,83 sem juros</p>
-        <button class="btn-fav">♡ Favoritar</button>
-      </div>
-    </div>
+    <!--
+      LOOP DOS PERFUMES MASCULINOS
+      Só aparecem perfumes categoria Masculino
+    -->
+    <ng-container *ngFor="let perfume of perfumesMasculinos">
 
-    <div class="product-card">
-      <div class="card-img-wrap"><img src="SauvageDior-removebg-preview.png" alt="Sauvage Dior"></div>
-      <div class="card-body">
-        <p class="card-marca">Dior</p>
-        <p class="card-nome">Sauvage EDP 100ml</p>
-        <p class="card-preco-de">De: R$499,99</p>
-        <p class="card-preco-por">R$469,89</p>
-        <p class="card-parcel">6x de R$78,31 sem juros</p>
-        <button class="btn-fav">♡ Favoritar</button>
-      </div>
-    </div>
+      <!-- CARD -->
+      <div class="product-card">
 
-    <div class="product-card">
-      <div class="card-img-wrap"><img src="NaturaDOMm-removebg-preview.png" alt="Natura DOM"></div>
-      <div class="card-body">
-        <p class="card-marca">Natura</p>
-        <p class="card-nome">Homem DOM 100ml</p>
-        <p class="card-preco-de">De: R$289,97</p>
-        <p class="card-preco-por">R$249,69</p>
-        <p class="card-parcel">6x de R$41,66 sem juros</p>
-        <button class="btn-fav">♡ Favoritar</button>
-      </div>
-    </div>
+        <!-- IMAGEM -->
+        <div class="card-img-wrap">
 
-    <div class="product-card">
-      <div class="card-img-wrap"><img src="Aventus_Creed-removebg-preview.png" alt="Aventus Creed"></div>
-      <div class="card-body">
-        <p class="card-marca">Creed</p>
-        <p class="card-nome">Aventus 100ml</p>
-        <p class="card-preco-de">De: R$929,65</p>
-        <p class="card-preco-por">R$898,20</p>
-        <p class="card-parcel">6x de R$149,70 sem juros</p>
-        <button class="btn-fav">♡ Favoritar</button>
+          <img [src]="perfume.imagem" [alt]="perfume.nome">
+
+        </div>
+
+        <!-- INFORMAÇÕES -->
+        <div class="card-body">
+
+          <!-- MARCA -->
+          <p class="card-marca">
+            {{ perfume.marca }}
+          </p>
+
+          <!-- NOME -->
+          <p class="card-nome">
+            {{ perfume.nome }}
+          </p>
+
+          <!-- PREÇO ANTIGO -->
+          <p class="card-preco-de">
+            De: R$ {{ perfume.precoAntigo }}
+          </p>
+
+          <!-- PREÇO ATUAL -->
+          <p class="card-preco-por">
+            R$ {{ perfume.precoAtual }}
+          </p>
+
+          <!-- PARCELAMENTO -->
+          <p class="card-parcel">
+
+            6x de R$
+
+            {{
+            (perfume.precoAtual / 6).toFixed(2)
+            }}
+
+            sem juros
+
+          </p>
+
+          <!-- FAVORITAR -->
+          <button class="btn-cart" (click)="adicionarCarrinho(perfume)">
+
+            <span class="cart-icon">
+              🛒
+            </span>
+
+            <span>
+              Adicionar ao Carrinho
+            </span>
+
+          </button>
+
+        </div>
+
       </div>
-    </div>
+
+    </ng-container>
 
   </div>
+
 </section>
 
-<!-- femininos pronto -->
-<section id="feminine" class="secao-produtos fade-in">
-  <h2 class="section-title">Perfumes <span class="destaque-ouro">Femininos</span></h2>
+<!-- ========================= -->
+<!-- SEÇÃO FEMININOS -->
+<!-- ========================= -->
 
+<section id="feminine" class="secao-produtos fade-in">
+
+  <!-- TITULO -->
+  <h2 class="section-title">
+
+    Perfumes
+
+    <span class="destaque-ouro">
+      Femininos
+    </span>
+
+  </h2>
+
+  <!-- CONTAINER -->
   <div class="perfumes-container">
 
-    <div class="product-card">
-      <div class="card-img-wrap"><img src="Good_Girl_Carolina_Herrera-removebg-preview.png" alt="Good Girl"></div>
-      <div class="card-body">
-        <p class="card-marca">Carolina Herrera</p>
-        <p class="card-nome">Good Girl 100ml</p>
-        <p class="card-preco-de">De: R$399,99</p>
-        <p class="card-preco-por">R$359,99</p>
-        <p class="card-parcel">6x de R$59,99 sem juros</p>
-        <button class="btn-fav">♡ Favoritar</button>
-      </div>
-    </div>
+    <!--
+      LOOP DOS PERFUMES FEMININOS
+      Só aparecem perfumes categoria Feminino
+    -->
+    <ng-container *ngFor="let perfume of perfumesFemininos">
 
-    <div class="product-card">
-      <div class="card-img-wrap"><img src="Coco_Noir_Chanel-removebg-preview.png" alt="Coco Noir"></div>
-      <div class="card-body">
-        <p class="card-marca">Chanel</p>
-        <p class="card-nome">Coco Noir 100ml</p>
-        <p class="card-preco-de">De: R$649,99</p>
-        <p class="card-preco-por">R$609,99</p>
-        <p class="card-parcel">6x de R$101,66 sem juros</p>
-        <button class="btn-fav">♡ Favoritar</button>
-      </div>
-    </div>
+      <!-- CARD -->
+      <div class="product-card">
 
-    <div class="product-card">
-      <div class="card-img-wrap"><img src="Yara_Lattafa-removebg-preview.png" alt="Yara Lattafa"></div>
-      <div class="card-body">
-        <p class="card-marca">Lattafa</p>
-        <p class="card-nome">Yara Lattafa 100ml</p>
-        <p class="card-preco-de">De: R$319,25</p>
-        <p class="card-preco-por">R$249,69</p>
-        <p class="card-parcel">6x de R$41,61 sem juros</p>
-        <button class="btn-fav">♡ Favoritar</button>
-      </div>
-    </div>
+        <!-- IMAGEM -->
+        <div class="card-img-wrap">
 
-    <div class="product-card">
-      <div class="card-img-wrap"><img src="Scandal_Jean_Paul_Gaultier-removebg-preview.png" alt="Scandal JPG"></div>
-      <div class="card-body">
-        <p class="card-marca">Jean Paul Gaultier</p>
-        <p class="card-nome">Scandal JPG 100ml</p>
-        <p class="card-preco-de">De: R$609,78</p>
-        <p class="card-preco-por">R$579,99</p>
-        <p class="card-parcel">6x de R$96,66 sem juros</p>
-        <button class="btn-fav">♡ Favoritar</button>
+          <img [src]="perfume.imagem" [alt]="perfume.nome">
+
+        </div>
+
+        <!-- CONTEÚDO -->
+        <div class="card-body">
+
+          <!-- MARCA -->
+          <p class="card-marca">
+            {{ perfume.marca }}
+          </p>
+
+          <!-- NOME -->
+          <p class="card-nome">
+            {{ perfume.nome }}
+          </p>
+
+          <!-- PREÇO ANTIGO -->
+          <p class="card-preco-de">
+            De: R$ {{ perfume.precoAntigo }}
+          </p>
+
+          <!-- PREÇO NOVO -->
+          <p class="card-preco-por">
+            R$ {{ perfume.precoAtual }}
+          </p>
+
+          <!-- PARCELAMENTO -->
+          <p class="card-parcel">
+
+            6x de R$
+
+            {{
+            (perfume.precoAtual / 6).toFixed(2)
+            }}
+
+            sem juros
+
+          </p>
+
+          <!-- BOTÃO -->
+          <button class="btn-cart" (click)="adicionarCarrinho(perfume)">
+
+            <span class="cart-icon">
+              🛒
+            </span>
+
+            <span>
+              Adicionar ao Carrinho
+            </span>
+
+          </button>
+
+        </div>
+
       </div>
-    </div>
+
+    </ng-container>
 
   </div>
+
 </section>

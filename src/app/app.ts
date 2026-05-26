@@ -11,4 +11,5 @@ import { Header } from './shared/header/header';
 })
 export class App {
   protected readonly title = signal('ProjetoPI');
+  
 }

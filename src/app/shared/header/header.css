@@ -114,3 +114,30 @@
 .menu a:hover {
   color: var(--dourado);
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.usuario-box{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-sair{
+  background: transparent;
+  border: 1px solid #e74c3c;
+  color: #e74c3c;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 12px;
+}
+
+.btn-sair:hover{
+  background: #e74c3c;
+  color: white;
+}

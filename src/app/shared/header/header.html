@@ -8,24 +8,34 @@
 
     <div class="logo-container">
       <a routerLink="/home"><img src="perfume.png" class="logo"></a>
-      <a routerLink="/home"><h1>Essency</h1></a>
+      <a routerLink="/home">
+        <h1>Essency</h1>
+      </a>
     </div>
 
     <div class="search">
-      <input type="text" placeholder="O que está buscando hoje?"/>
+      <input type="text" placeholder="O que está buscando hoje?" />
       <div class="resultado-box"></div>
     </div>
 
     <div class="actions">
 
-      <div routerLink="/favorites" class="item">
-        <i class="fa-regular fa-heart"></i>
-        <span>Favoritos</span>
-      </div>
-
-      <div routerLink="/login" class="item">
+      <div *ngIf="!usuario" routerLink="/login" class="item">
         <i class="fa-regular fa-user"></i>
         <span>Entrar</span>
+      </div>
+
+      <!-- SE ESTIVER LOGADO -->
+      <div *ngIf="usuario" class="item usuario-box">
+
+        <i class="fa-regular fa-user"></i>
+
+        <span>{{ usuario.nome }}</span>
+
+        <button class="btn-sair" (click)="sair()">
+          Sair
+        </button>
+
       </div>
 
       <div routerLink="/cart" class="item">
@@ -33,9 +43,11 @@
         <span>Meu Carrinho</span>
       </div>
 
-      <div routerLink="/admin-page" class="item">
+      <div *ngIf="usuario?.isAdmin" routerLink="/admin-page" class="item">
+
         <i class="fa-solid fa-key"></i>
         <span>Admin</span>
+
       </div>
 
     </div>
